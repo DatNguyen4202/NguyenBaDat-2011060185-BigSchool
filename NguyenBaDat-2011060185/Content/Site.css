@@ -6,8 +6,7 @@
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
+   will truncate terms that are too long to fit in the left column */
 .dl-horizontal dt {
     white-space: normal;
 }
@@ -17,4 +16,23 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.navbar-inverse .navbar-tonggle:hover,
+.navbar-inverse .navbar-tonggle:focus {
+    background-color : rgb(0 255 33) ;
+
+    border-color : #fff;
+}
+
+.navbar {
+    background-color: rgb(255 255 255);
+}
+
+body {
+    margin: 0;
+    font-family: var(--bs-body-font-family);
+    line-height: var(--bs-body-line-height);
+    color: #ffffff;
+    background-color: rgb(253, 202, 202);
 }

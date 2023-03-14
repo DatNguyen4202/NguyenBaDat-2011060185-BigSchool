@@ -1,4 +1,5 @@
-﻿using NguyenBaDat_2011060185.Models;
+﻿using Microsoft.AspNet.Identity;
+using NguyenBaDat_2011060185.Models;
 using NguyenBaDat_2011060185.XemModels;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,30 @@ namespace NguyenBaDat_2011060185.Controllers
                 Categories = _dbContext.Categories.ToList()
             };
             return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CourseXemModels xemModels)
+        {
+            if (!ModelState.IsValid)
+            {
+                xemModels.Categories = _dbContext.Categories.ToList();
+                return View("Create", xemModels);
+            }
+
+            var course = new Course
+            {
+                LecturerId = User.Identity.GetUserId(),
+                DateTime = xemModels.GetDateTime(),
+                CategoryId = xemModels.Category,
+                Place = xemModels.Place
+            };
+            _dbContext.Courses.Add(course);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
