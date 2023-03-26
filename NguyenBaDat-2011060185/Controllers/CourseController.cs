@@ -3,6 +3,7 @@ using NguyenBaDat_2011060185.Models;
 using NguyenBaDat_2011060185.XemModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,11 +22,11 @@ namespace NguyenBaDat_2011060185.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            var viewModel = new CourseXemModels
+            var XemModels = new CourseXemModels
             {
                 Categories = _dbContext.Categories.ToList()
             };
-            return View(viewModel);
+            return View(XemModels);
         }
 
         [Authorize]
@@ -50,6 +51,27 @@ namespace NguyenBaDat_2011060185.Controllers
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult Attending() 
+        {
+            var userId = User.Identity.GetUserId();
+
+            var courses = _dbContext.Attendances
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Course)
+                .Include(1 => 1.Lecturer)
+                .Include(1 => 1.Category)
+                .ToList();
+
+            var XemModel = new CourseXemModels
+            {
+                UpcomingCourse = courses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+
+            return View(XemModel);
         }
     }
 }

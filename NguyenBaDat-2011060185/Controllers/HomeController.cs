@@ -5,12 +5,14 @@ using System.Linq;
 using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
+using NguyenBaDat_2011060185.XemModels;
 
 namespace NguyenBaDat_2011060185.Controllers
 {
     public class HomeController : Controller
     {
         private ApplicationDbContext _dbContext;
+        private bool ShowAction;
 
         public HomeController()
         {
@@ -23,7 +25,13 @@ namespace NguyenBaDat_2011060185.Controllers
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
 
-            return View(upcomingCourses);
+            var XemModel = new CourseXemModels();
+            {
+                upcomingCourses = upcomingCourses;
+                ShowAction = User.Identity.IsAuthenticated;
+            }
+
+            return View(XemModel);
         }
 
         public ActionResult About()

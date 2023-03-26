@@ -9,6 +9,8 @@ namespace NguyenBaDat_2011060185.XemModels
 {
     public class CourseXemModels
     {
+        public IEnumerable<Course> UpcomingCourse { get; set; }
+        public bool ShowAction { get; set; }    
         [Required]
         public string Place { get; set; }
 
