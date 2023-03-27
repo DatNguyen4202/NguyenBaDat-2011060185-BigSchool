@@ -1,11 +1,13 @@
 ﻿@model NguyenBaDat_2011060185.XemModels.CourseXemModels
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Attending";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Attending</h2>
+
 <ul class="course">
-    @foreach (var course in Model.UpcomingCourses)
+    @foreach (var course in Model.UpcomingCourse)
     {
         <li>
             <div class="date">

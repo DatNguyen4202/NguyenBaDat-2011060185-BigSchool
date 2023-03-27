@@ -27,11 +27,16 @@ namespace NguyenBaDat_2011060185.Controllers
 
             var XemModel = new CourseXemModels();
             {
-                upcomingCourses = upcomingCourses;
+                upcomingCourses = GetUpcomingCourses();
                 ShowAction = User.Identity.IsAuthenticated;
             }
 
             return View(XemModel);
+
+            IQueryable<Course> GetUpcomingCourses()
+            {
+                return upcomingCourses;
+            }
         }
 
         public ActionResult About()

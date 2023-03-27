@@ -61,8 +61,8 @@ namespace NguyenBaDat_2011060185.Controllers
             var courses = _dbContext.Attendances
                 .Where(a => a.AttendeeId == userId)
                 .Select(a => a.Course)
-                .Include(1 => 1.Lecturer)
-                .Include(1 => 1.Category)
+                .Include(c => c.Lecturer)
+                .Include(c => c.Category)
                 .ToList();
 
             var XemModel = new CourseXemModels
